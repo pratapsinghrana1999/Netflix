@@ -17,6 +17,7 @@
 		18811AED2ABDB47F00F52F62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18811AEC2ABDB47F00F52F62 /* Assets.xcassets */; };
 		18811AF02ABDB47F00F52F62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18811AEE2ABDB47F00F52F62 /* LaunchScreen.storyboard */; };
 		18DDD7032AC160560095A66F /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DDD7022AC160560095A66F /* CollectionViewTableViewCell.swift */; };
+		18DDD7052AC1789C0095A66F /* HeroHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DDD7042AC1789C0095A66F /* HeroHeaderUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		18811AEF2ABDB47F00F52F62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18811AF12ABDB47F00F52F62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18DDD7022AC160560095A66F /* CollectionViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableViewCell.swift; sourceTree = "<group>"; };
+		18DDD7042AC1789C0095A66F /* HeroHeaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroHeaderUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				18DDD7022AC160560095A66F /* CollectionViewTableViewCell.swift */,
+				18DDD7042AC1789C0095A66F /* HeroHeaderUIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				180D5D162ABE613F003DF23A /* SearchVC.swift in Sources */,
 				18811AE82ABDB47D00F52F62 /* MainTabBarVC.swift in Sources */,
 				18DDD7032AC160560095A66F /* CollectionViewTableViewCell.swift in Sources */,
+				18DDD7052AC1789C0095A66F /* HeroHeaderUIView.swift in Sources */,
 				180D5D122ABE6071003DF23A /* HomeVC.swift in Sources */,
 				18811AE42ABDB47D00F52F62 /* AppDelegate.swift in Sources */,
 				180D5D182ABE61B8003DF23A /* DownloadsVC.swift in Sources */,
