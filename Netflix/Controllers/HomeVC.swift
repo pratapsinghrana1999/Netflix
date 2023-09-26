@@ -10,7 +10,7 @@ import UIKit
 class HomeVC: UIViewController {
 
     let sectionTitles : [String] = [
-        "Trending Movies", "Popular", "Trending TV Shows", "Upcoming Movies", "Top Rated"
+        "Trending Movies", "Trending TV Shows", "Popular", "Upcoming Movies", "Top Rated"
     ]
     
     private let homeFeedTable : UITableView = {
@@ -35,7 +35,7 @@ class HomeVC: UIViewController {
         homeFeedTable.tableHeaderView = headerView
         
         //Functionalities Calls.
-        fetchTrendingMoviesData()
+        fetchData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -87,7 +87,7 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
         header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
         header.textLabel?.textColor = .label
-        //header.textLabel?.text = header.textLabel?.text?.lowercased()
+        //header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -106,10 +106,61 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
 
 extension HomeVC {
     
-    private func fetchTrendingMoviesData(){
+    private func fetchData(){
         APICaller.shared.getTrendingMovies { result in
             switch result {
             case .success(let movies) :
+                print("-----------------------------------")
+                print("-----------------Trending Movies------------------")
+                print("-----------------------------------")
+                print(movies)
+            case .failure(let error) :
+                print(error)
+            }
+        }
+        
+        APICaller.shared.getTrendingTvShows { result in
+            switch result {
+            case .success(let tv_shows) :
+                print("-----------------------------------")
+                print("-----------------Trending TV Shows------------------")
+                print("-----------------------------------")
+                print(tv_shows)
+            case .failure(let error) :
+                print(error)
+            }
+        }
+        
+        APICaller.shared.getUpcomingMovies { result in
+            switch result {
+            case .success(let movies) :
+                print("-----------------------------------")
+                print("-----------------Upcoming Movies------------------")
+                print("-----------------------------------")
+                print(movies)
+            case .failure(let error) :
+                print(error)
+            }
+        }
+        
+        APICaller.shared.getPopularMovies { result in
+            switch result {
+            case .success(let movies) :
+                print("-----------------------------------")
+                print("-----------------Popular Movies------------------")
+                print("-----------------------------------")
+                print(movies)
+            case .failure(let error) :
+                print(error)
+            }
+        }
+        
+        APICaller.shared.getTopRatedMovies { result in
+            switch result {
+            case .success(let movies) :
+                print("-----------------------------------")
+                print("-----------------Top Rated Movies------------------")
+                print("-----------------------------------")
                 print(movies)
             case .failure(let error) :
                 print(error)
