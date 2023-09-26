@@ -33,6 +33,9 @@ class HomeVC: UIViewController {
         
         let headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
         homeFeedTable.tableHeaderView = headerView
+        
+        //Functionalities Calls.
+        fetchTrendingMoviesData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -97,4 +100,21 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
         let offset = scrollView.contentOffset.y + defaultOffset
         navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
     }
+}
+
+// MARK: - Functionalities
+
+extension HomeVC {
+    
+    private func fetchTrendingMoviesData(){
+        APICaller.shared.getTrendingMovies { result in
+            switch result {
+            case .success(let movies) :
+                print(movies)
+            case .failure(let error) :
+                print(error)
+            }
+        }
+    }
+    
 }
