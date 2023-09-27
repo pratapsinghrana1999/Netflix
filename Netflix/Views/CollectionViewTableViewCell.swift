@@ -10,6 +10,8 @@ import UIKit
 class CollectionViewTableViewCell: UITableViewCell {
     
     static let identifier = "CollectionViewTableViewCell"
+    private var contentData : [Contents] = [Contents]()
+    
     
     //CollectionView Creation.
     private let collectionView : UICollectionView = {
@@ -17,7 +19,8 @@ class CollectionViewTableViewCell: UITableViewCell {
         layout.itemSize = CGSize(width: 140, height: 200)
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(ContentsCollectionViewCell.self, forCellWithReuseIdentifier: ContentsCollectionViewCell.identifier)
+        
         return collectionView
     }()
     
@@ -43,17 +46,29 @@ class CollectionViewTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public func configureContentCells(with data : [Contents]){
+        self.contentData = data
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
+    }
 }
 
 extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return contentData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .lightGray
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContentsCollectionViewCell.identifier, for: indexPath) as? ContentsCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        guard let path = contentData[indexPath.row].poster_path else{
+            return UICollectionViewCell()
+        }
+        cell.configurePosterImage(with: path)
         return cell
     }
 }

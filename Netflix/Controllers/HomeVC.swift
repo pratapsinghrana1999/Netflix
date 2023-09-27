@@ -7,6 +7,14 @@
 
 import UIKit
 
+enum Sections : Int {
+    case TrendingMovies = 0
+    case TrendingTvShows = 1
+    case Popular = 2
+    case Upcoming = 3
+    case TopRated = 4
+}
+
 class HomeVC: UIViewController {
 
     let sectionTitles : [String] = [
@@ -34,8 +42,6 @@ class HomeVC: UIViewController {
         let headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
         homeFeedTable.tableHeaderView = headerView
         
-        //Functionalities Calls.
-        fetchData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -71,6 +77,58 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
+        
+        switch indexPath.section {
+        case Sections.TrendingMovies.rawValue :
+            APICaller.shared.getTrendingMovies { result in
+                switch result {
+                case .success(let titles) :
+                    cell.configureContentCells(with: titles)
+                case .failure(let error) :
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.TrendingTvShows.rawValue :
+            APICaller.shared.getTrendingTvShows { result in
+                switch result {
+                case .success(let titles) :
+                    cell.configureContentCells(with: titles)
+                case .failure(let error) :
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.Popular.rawValue :
+            APICaller.shared.getPopularMovies { result in
+                switch result {
+                case .success(let titles) :
+                    cell.configureContentCells(with: titles)
+                case .failure(let error) :
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.Upcoming.rawValue :
+            APICaller.shared.getUpcomingMovies { result in
+                switch result {
+                case .success(let titles) :
+                    cell.configureContentCells(with: titles)
+                case .failure(let error) :
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.TopRated.rawValue :
+            APICaller.shared.getTopRatedMovies { result in
+                switch result {
+                case .success(let titles) :
+                    cell.configureContentCells(with: titles)
+                case .failure(let error) :
+                    print(error.localizedDescription)
+                }
+            }
+        default :
+            print("Default Case Run.")
+            return UITableViewCell()
+        }
+        
         return cell
     }
     
@@ -100,72 +158,4 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
         let offset = scrollView.contentOffset.y + defaultOffset
         navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
     }
-}
-
-// MARK: - Functionalities
-
-extension HomeVC {
-    
-    private func fetchData(){
-        APICaller.shared.getTrendingMovies { result in
-            switch result {
-            case .success(let movies) :
-                print("-----------------------------------")
-                print("-----------------Trending Movies------------------")
-                print("-----------------------------------")
-                print(movies)
-            case .failure(let error) :
-                print(error)
-            }
-        }
-        
-        APICaller.shared.getTrendingTvShows { result in
-            switch result {
-            case .success(let tv_shows) :
-                print("-----------------------------------")
-                print("-----------------Trending TV Shows------------------")
-                print("-----------------------------------")
-                print(tv_shows)
-            case .failure(let error) :
-                print(error)
-            }
-        }
-        
-        APICaller.shared.getUpcomingMovies { result in
-            switch result {
-            case .success(let movies) :
-                print("-----------------------------------")
-                print("-----------------Upcoming Movies------------------")
-                print("-----------------------------------")
-                print(movies)
-            case .failure(let error) :
-                print(error)
-            }
-        }
-        
-        APICaller.shared.getPopularMovies { result in
-            switch result {
-            case .success(let movies) :
-                print("-----------------------------------")
-                print("-----------------Popular Movies------------------")
-                print("-----------------------------------")
-                print(movies)
-            case .failure(let error) :
-                print(error)
-            }
-        }
-        
-        APICaller.shared.getTopRatedMovies { result in
-            switch result {
-            case .success(let movies) :
-                print("-----------------------------------")
-                print("-----------------Top Rated Movies------------------")
-                print("-----------------------------------")
-                print(movies)
-            case .failure(let error) :
-                print(error)
-            }
-        }
-    }
-    
 }
